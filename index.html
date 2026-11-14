@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Data engineering, analytics, business intelligence and data science consulting.">
+  <title>MOTHIBELA GROUP | Data & Intelligence</title>
+  <style>
+    :root {
+      --navy: #101b35;
+      --navy2: #172746;
+      --blue: #3978e8;
+      --cyan: #50d5d0;
+      --ink: #18243a;
+      --muted: #64718a;
+      --light: #f4f7fb;
+      --white: #fff;
+      --line: #e5eaf2;
+      --shadow: 0 18px 50px rgba(16, 27, 53, .10);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: auto; }
+    header { position: sticky; top: 0; z-index: 20; background: rgba(16,27,53,.96); backdrop-filter: blur(12px); color: white; border-bottom: 1px solid rgba(255,255,255,.1); }
+    .nav { min-height: 96px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; flex: 0 0 auto; }
+    .brand-logo { display: block; width: 132px; height: 88px; object-fit: contain; }
+
+    .nav-links { display: flex; align-items: center; gap: 26px; font-size: 13px; color: #d5deec; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta, .btn { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 9px; padding: 12px 18px; font-weight: 700; cursor: pointer; transition: .2s ease; }
+    .nav-cta, .btn-primary { background: var(--blue); color: white; }
+    .nav-cta:hover, .btn-primary:hover { background: #2866d4; transform: translateY(-1px); }
+    .menu-toggle { display: none; background: transparent; color: white; border: 1px solid #52617b; border-radius: 8px; padding: 8px 11px; }
+    .hero { background: radial-gradient(circle at 78% 30%, rgba(80,213,208,.18), transparent 26%), linear-gradient(120deg,#101b35,#172b50 65%,#18385b); color: white; overflow: hidden; }
+    .hero-grid { min-height: 620px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 45px; padding-top: 65px; padding-bottom: 75px; }
+    .eyebrow { color: var(--cyan); text-transform: uppercase; font-size: 11px; font-weight: 800; letter-spacing: .2em; margin-bottom: 18px; }
+    h1 { font-size: clamp(42px, 5.5vw, 68px); line-height: 1.06; letter-spacing: -.045em; max-width: 690px; }
+    h1 span { color: var(--cyan); }
+    .hero-copy { color: #c4d0e1; font-size: 17px; max-width: 560px; margin: 24px 0 30px; }
+    .hero-actions { display: flex; gap: 13px; flex-wrap: wrap; }
+    .btn-outline { color: white; border: 1px solid #71819c; background: rgba(255,255,255,.04); }
+    .btn-outline:hover { background: rgba(255,255,255,.12); }
+    .hero-note { color: #9eacc2; font-size: 12px; margin-top: 28px; }
+    .visual { min-height: 390px; position: relative; display: grid; place-items: center; }
+    .orbit { width: min(390px, 85vw); aspect-ratio: 1; border: 1px solid rgba(80,213,208,.28); border-radius: 50%; position: absolute; }
+    .orbit:before, .orbit:after { content: ""; position: absolute; inset: 35px; border: 1px solid rgba(80,213,208,.2); border-radius: 50%; }
+    .orbit:after { inset: 75px; }
+    .data-core { position: relative; width: 180px; height: 180px; display: grid; place-items: center; text-align: center; border-radius: 32px; background: linear-gradient(145deg,rgba(57,120,232,.95),rgba(80,213,208,.75)); box-shadow: 0 20px 70px rgba(0,0,0,.25); transform: rotate(-7deg); }
+    .data-core strong { font-size: 22px; line-height: 1.2; transform: rotate(7deg); }
+    .float-card { position: absolute; background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.2); backdrop-filter: blur(10px); border-radius: 13px; padding: 13px 16px; color: #eaf3ff; box-shadow: 0 12px 30px rgba(0,0,0,.12); font-size: 12px; }
+    .float-card b { display: block; color: white; font-size: 15px; }
+    .fc1 { top: 38px; right: 0; } .fc2 { bottom: 44px; left: 0; } .fc3 { bottom: 4px; right: 15px; }
+    .section { padding: 94px 0; }
+    .section-light { background: var(--light); }
+    .section-head { max-width: 680px; margin-bottom: 42px; }
+    .kicker { color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 10px; }
+    h2 { font-size: clamp(30px,4vw,43px); line-height: 1.15; letter-spacing: -.035em; color: var(--navy); }
+    .section-head p { color: var(--muted); margin-top: 14px; }
+    .services { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .service-card { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 27px; box-shadow: 0 5px 20px rgba(20,40,70,.035); transition: .2s; }
+    .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .service-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 13px; background: #eaf1ff; color: var(--blue); font-size: 22px; margin-bottom: 20px; }
+    .service-card h3 { font-size: 18px; color: var(--navy); margin-bottom: 10px; }
+    .service-card p { font-size: 14px; color: var(--muted); }
+    .service-card ul { list-style: none; margin-top: 17px; color: #43516a; font-size: 13px; }
+    .service-card li { margin: 7px 0; }
+    .service-card li:before { content: "✓"; color: var(--blue); font-weight: 900; margin-right: 9px; }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 65px; align-items: center; }
+    .about-panel { min-height: 340px; border-radius: 20px; padding: 35px; color: white; background: linear-gradient(145deg,#172746,#24558b); position: relative; overflow: hidden; }
+    .about-panel:after { content: "DATA"; position: absolute; font-size: 100px; font-weight: 900; color: rgba(255,255,255,.06); bottom: -18px; right: -5px; letter-spacing: -.08em; }
+    .about-panel .big { font-size: 52px; font-weight: 850; line-height: 1; color: var(--cyan); }
+    .about-panel p { color: #d4dfed; max-width: 270px; margin-top: 12px; }
+    .about-copy p { color: var(--muted); margin: 17px 0; }
+    .check-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+    .check { font-size: 13px; font-weight: 700; color: #33435e; }
+    .check:before { content: "●"; color: var(--cyan); margin-right: 9px; }
+    .process { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; counter-reset: step; }
+    .step { padding: 24px; background: white; border: 1px solid var(--line); border-radius: 15px; }
+    .step:before { counter-increment: step; content: "0" counter(step); display: block; color: var(--blue); font-size: 25px; font-weight: 850; margin-bottom: 16px; }
+    .step h3 { font-size: 16px; margin-bottom: 8px; }
+    .step p { color: var(--muted); font-size: 13px; }
+    .projects { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .project { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: white; }
+    .project-art { height: 155px; padding: 20px; display: flex; align-items: end; color: white; font-weight: 800; font-size: 18px; background: linear-gradient(135deg,#142342,#3978e8); }
+    .project:nth-child(2) .project-art { background: linear-gradient(135deg,#12434e,#50bdb5); }
+    .project:nth-child(3) .project-art { background: linear-gradient(135deg,#432f70,#9675db); }
+    .project-body { padding: 22px; }
+    .project-body p { color: var(--muted); font-size: 13px; margin-top: 8px; }
+    .tag { display: inline-block; color: #3569c4; background: #edf3ff; padding: 5px 9px; border-radius: 20px; font-size: 10px; font-weight: 800; margin-top: 15px; }
+    .cta-band { background: linear-gradient(110deg,#142342,#1b4772); color: white; padding: 55px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .cta-band h2 { color: white; max-width: 600px; }
+    .cta-band p { color: #c2d0e2; margin-top: 10px; }
+    .contact-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 50px; }
+    .contact-info p { color: var(--muted); margin: 15px 0 24px; }
+    .contact-item { margin: 18px 0; font-size: 14px; }
+    .contact-item strong { display: block; color: var(--navy); }
+    form { background: white; border: 1px solid var(--line); padding: 28px; border-radius: 16px; box-shadow: var(--shadow); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { display: block; font-size: 12px; font-weight: 750; color: #34425b; margin: 12px 0 6px; }
+    input, textarea, select { width: 100%; border: 1px solid #dce3ed; background: #fbfcfe; border-radius: 8px; padding: 12px; outline: none; color: var(--ink); }
+    input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(57,120,232,.1); }
+    textarea { min-height: 125px; resize: vertical; }
+    .form-note { font-size: 11px; color: var(--muted); margin-top: 12px; }
+    footer { background: #0d172c; color: #c0ccdd; padding: 34px 0; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; align-items: center; flex-wrap: wrap; font-size: 12px; }
+    .footer-inner strong { color: white; }
+    @media (max-width: 850px) {
+      .nav-links { display: none; position: absolute; top: 96px; left: 0; right: 0; padding: 22px; background: var(--navy); flex-direction: column; align-items: flex-start; }
+      .nav-links.open { display: flex; }
+      .menu-toggle { display: block; }
+      .brand-logo { width: 112px; height: 74px; }
+      .nav-cta { display: none; }
+      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-grid { padding-top: 75px; }
+      .visual { min-height: 330px; }
+      .services, .projects { grid-template-columns: repeat(2,1fr); }
+      .process { grid-template-columns: repeat(2,1fr); }
+      .about-grid { gap: 35px; }
+    }
+    @media (max-width: 560px) {
+      .container { width: min(100% - 30px,1160px); }
+      .section { padding: 70px 0; }
+      .services, .projects, .process, .form-row, .check-list { grid-template-columns: 1fr; }
+      .cta-band { padding: 30px; align-items: flex-start; flex-direction: column; }
+      .hero-grid { min-height: auto; }
+      .visual { min-height: 290px; }
+      .orbit { width: 270px; }
+      .data-core { width: 140px; height: 140px; }
+      .fc1 { right: -4px; } .fc2 { left: -4px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+  
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Mothibela Group home">
+        <img class="brand-logo" src="mothibela-group-logo.png" alt="Mothibela Group — Building beyond boundaries">
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#services">Services</a><a href="#about">About</a><a href="#approach">Our approach</a><a href="#work">Our work</a><a href="#contact">Contact</a>
+      </nav>
+      <a class="nav-cta" href="#contact">Discuss a project ↗</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Independent data consulting</div>
+          <h1>Turn your data into <span>business intelligence.</span></h1>
+          <p class="hero-copy">We help organisations build reliable data foundations, understand performance and make confident decisions through data engineering, analytics and intelligent modelling.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Start a conversation ↗</a>
+            <a class="btn btn-outline" href="#services">Explore our services</a>
+          </div>
+          <p class="hero-note">Practical solutions. Trusted data. Measurable business value.</p>
+        </div>
+        <div class="visual" aria-label="Abstract data intelligence illustration">
+          <div class="orbit"></div>
+          <div class="data-core"><strong>DATA<br>INTO<br>INSIGHT</strong></div>
+          <div class="float-card fc1">Analytics<b>Clearer decisions</b></div>
+          <div class="float-card fc2">Engineering<b>Reliable data flows</b></div>
+          <div class="float-card fc3">Intelligence<b>Business impact</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light" id="services">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">What we do</div>
+          <h2>Data solutions built around your business.</h2>
+          <p>From bringing data together to turning it into actionable insight, we support organisations across the data lifecycle.</p>
+        </div>
+        <div class="services">
+          <article class="service-card">
+            <div class="service-icon">⌘</div><h3>Data Engineering</h3>
+            <p>Build dependable data infrastructure that makes information accessible, consistent and ready for use.</p>
+            <ul><li>ETL and ELT pipelines</li><li>Cloud data lakes and warehouses</li><li>Data integration and migration</li><li>Data quality and automation</li></ul>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">▥</div><h3>Business Intelligence</h3>
+            <p>Give teams a clear view of business performance with well-designed reporting and analytics.</p>
+            <ul><li>Power BI and QuickSight dashboards</li><li>Management reporting</li><li>KPI and performance tracking</li><li>Self-service analytics</li></ul>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">⌁</div><h3>Data Science</h3>
+            <p>Use statistical methods and machine learning to explore patterns and support better decisions.</p>
+            <ul><li>Predictive modelling</li><li>Forecasting and segmentation</li><li>Statistical analysis</li><li>Model evaluation</li></ul>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">◎</div><h3>Risk & Commercial Analytics</h3>
+            <p>Understand the drivers of risk, revenue and operational performance through focused analysis.</p>
+            <ul><li>Transaction and fraud analytics</li><li>Revenue assurance</li><li>Pricing and profitability analysis</li><li>Risk indicators and monitoring</li></ul>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">◈</div><h3>Data Strategy & Advisory</h3>
+            <p>Make informed technology and data decisions with practical guidance aligned to business needs.</p>
+            <ul><li>Data maturity assessments</li><li>Cloud and platform advisory</li><li>Data governance guidance</li><li>Architecture reviews</li></ul>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">↗</div><h3>Reporting Automation</h3>
+            <p>Reduce repetitive manual work and help teams access timely, consistent information.</p>
+            <ul><li>Excel and database automation</li><li>Scheduled reporting workflows</li><li>Data reconciliation</li><li>Operational reporting</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div class="about-panel">
+          <div class="eyebrow">Our purpose</div>
+          <div class="big">Make data<br>work harder.</div>
+          <p>We connect technical capability with the questions that matter to your organisation.</p>
+        </div>
+        <div class="about-copy">
+          <div class="kicker">About the company</div>
+          <h2>We believe better decisions start with better data.</h2>
+          <p>Mothibela Group is a data consulting business focused on helping organisations get more value from their information. We combine data engineering, analytical thinking and practical technology to solve real business challenges.</p>
+          <p>Whether you need to modernise data pipelines, automate reporting or understand business performance, our approach starts with your objectives and works towards a solution that can grow with you.</p>
+          <div class="check-list">
+            <div class="check">Business-first thinking</div><div class="check">Scalable solutions</div>
+            <div class="check">Responsible data practices</div><div class="check">Clear communication</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light" id="approach">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">How we work</div>
+          <h2>A clear path from challenge to outcome.</h2>
+          <p>Every engagement is shaped around the client's needs, existing environment and desired outcomes.</p>
+        </div>
+        <div class="process">
+          <article class="step"><h3>Understand</h3><p>We learn about your business, data landscape and the problem you want to solve.</p></article>
+          <article class="step"><h3>Assess</h3><p>We review available data, processes and requirements before recommending an approach.</p></article>
+          <article class="step"><h3>Deliver</h3><p>We build, test and document a solution with agreed scope and milestones.</p></article>
+          <article class="step"><h3>Improve</h3><p>We measure results and identify opportunities to refine and extend the solution.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Selected capabilities</div>
+          <h2>Examples of the problems we can solve.</h2>
+          
+        </div>
+        <div class="projects">
+          <article class="project"><div class="project-art">Commercial performance</div><div class="project-body"><h3>Sales & revenue intelligence</h3><p>Bring product, sales and volume data together to track trends, performance and business opportunities.</p><span class="tag">BI & ANALYTICS</span></div></article>
+          <article class="project"><div class="project-art">Modern data platform</div><div class="project-body"><h3>Cloud data foundation</h3><p>Design an organised data flow from source files and systems into trusted, analysis-ready datasets.</p><span class="tag">DATA ENGINEERING</span></div></article>
+          <article class="project"><div class="project-art">Predictive insight</div><div class="project-body"><h3>Risk & predictive modelling</h3><p>Explore patterns in historical data and evaluate models that support risk-aware decisions.</p><span class="tag">DATA SCIENCE</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light">
+      <div class="container">
+        <div class="cta-band">
+          <div><div class="eyebrow">Let's work together</div><h2>Have a data challenge you'd like to solve?</h2><p>Tell us what you're trying to achieve. We'll start with a conversation about your requirements.</p></div>
+          <a class="btn btn-primary" href="#contact">Talk to our team ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-info">
+          <div class="kicker">Get in touch</div>
+          <h2>Let's discuss your next data project.</h2>
+          <p>Share a little about your organisation and what you need help with. Replace the placeholder contact details with your official business details before publishing.</p>
+          <div class="contact-item"><strong>Email</strong><span>mothibelagroup@gmail.com</span></div>
+          <div class="contact-item"><strong>Location</strong><span>Johannesburg, South Africa</span></div>
+          <div class="contact-item"><strong>Engagements</strong><span>Project-based consulting • Ongoing support</span></div>
+        </div>
+        <form id="contactForm">
+          <div class="form-row">
+            <div><label for="name">Your name *</label><input id="name" name="name" required placeholder="Full name"></div>
+            <div><label for="email">Work email *</label><input id="email" name="email" type="email" required placeholder="name@company.com"></div>
+          </div>
+          <div class="form-row">
+            <div><label for="company">Company</label><input id="company" name="company" placeholder="Company name"></div>
+            <div><label for="service">Service of interest</label><select id="service" name="service"><option>Choose a service</option><option>Data Engineering</option><option>Business Intelligence</option><option>Data Science</option><option>Risk & Commercial Analytics</option><option>Data Strategy & Advisory</option><option>Reporting Automation</option><option>Other</option></select></div>
+          </div>
+          <label for="message">How can we help? *</label><textarea id="message" name="message" required placeholder="Tell us about your data challenge or project..."></textarea>
+          <button class="btn btn-primary" type="submit">Prepare enquiry email ↗</button>
+          
+          <p id="formStatus" class="form-note" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div><strong>MOTHIBELA GROUP</strong><br>Data • Technology • Intelligence</div>
+      <div>© <span id="year"></span> MOTHIBELA GROUP. All rights reserved.</div>
+      <div><a href="#home">Back to top ↑</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.textContent = open ? '✕' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = '☰';
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const data = new FormData(this);
+      const recipient = 'mothibelagroup@gmail.com'; // Replace with your real business email.
+      const subject = encodeURIComponent('Website enquiry - ' + (data.get('service') || 'Data consulting'));
+      const body = encodeURIComponent(
+        'Name: ' + data.get('name') + '\n' +
+        'Email: ' + data.get('email') + '\n' +
+        'Company: ' + data.get('company') + '\n' +
+        'Service: ' + data.get('service') + '\n\n' +
+        'Message:\n' + data.get('message')
+      );
+      document.getElementById('formStatus').textContent = 'Opening your email application to send this enquiry.';
+      window.location.href = 'mailto:' + recipient + '?subject=' + subject + '&body=' + body;
+    });
+  </script>
+</body>
+</html>
